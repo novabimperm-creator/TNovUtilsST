@@ -197,7 +197,7 @@ namespace TNovUtilsST
             Category category = element.Category;
             if (category != null)
             {
-                BuiltInCategory bic = (BuiltInCategory)category.Id.IntegerValue;
+                BuiltInCategory bic = (BuiltInCategory)RevitApiCompat.ElementIdIntValue(category.Id);
                 if (nonHideableCategories.Contains(bic))
                 {
                     return false;

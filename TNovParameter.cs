@@ -9,7 +9,11 @@ namespace TNovUtilsST
         public string TNovParamName { get; set; }
         public Definition TNovParamDefinition;
         public List<Category> TNovParamCategories = new List<Category>();
+#if R2022
         public BuiltInParameterGroup TNovParamGroup;
+#else
+        public ForgeTypeId TNovParamGroup;
+#endif
         public Guid TNovParamGuid;
 
         public TNovParameter(Parameter param, Document doc)
@@ -19,7 +23,7 @@ namespace TNovUtilsST
             TNovParamName = TNovParamDefinition.Name;
 
             InternalDefinition intDef = TNovParamDefinition as InternalDefinition;
-            if (intDef != null) TNovParamGroup = intDef.ParameterGroup;
+            if (intDef != null) TNovParamGroup = RevitApiCompat.GetParameterGroup(intDef);
 
             TNovParamGuid = param.GUID;
 
@@ -39,10 +43,10 @@ namespace TNovUtilsST
             ElementBinding elemBind = this.GetBindingByParamName(TNovParamName, doc);
 
             CategorySet newCatSet = app.Create.NewCategorySet();
-            int rebarcatid = new ElementId(BuiltInCategory.OST_Rebar).IntegerValue;
+            int rebarcatid = RevitApiCompat.ElementIdIntValue(new ElementId(BuiltInCategory.OST_Rebar));
             foreach (Category cat in elemBind.Categories)
             {
-                int catId = cat.Id.IntegerValue;
+                int catId = RevitApiCompat.ElementIdIntValue(cat.Id);
                 if (catId != rebarcatid)
                 {
                     newCatSet.Insert(cat);
@@ -56,13 +60,13 @@ namespace TNovUtilsST
             }
 
             TypeBinding newBind = app.Create.NewTypeBinding(newCatSet);
-            if (doc.ParameterBindings.Insert(TNovParamDefinition, newBind, TNovParamGroup))
+            if (RevitApiCompat.InsertParameterBinding(doc, TNovParamDefinition, newBind, TNovParamGroup))
             {
                 return true;
             }
             else
             {
-                if (doc.ParameterBindings.ReInsert(TNovParamDefinition, newBind, TNovParamGroup))
+                if (RevitApiCompat.ReInsertParameterBinding(doc, TNovParamDefinition, newBind, TNovParamGroup))
                 {
                     return true;
                 }
@@ -142,7 +146,7 @@ namespace TNovUtilsST
             catSet.Insert(elem.Category);
             TypeBinding newBind = app.Create.NewTypeBinding(catSet);
 
-            doc.ParameterBindings.Insert(exDef, newBind, TNovParamGroup);
+            RevitApiCompat.InsertParameterBinding(doc, exDef, newBind, TNovParamGroup);
 
             //app.SharedParametersFilename = oldSharedParamsFile;
 

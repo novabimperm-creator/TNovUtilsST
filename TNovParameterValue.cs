@@ -41,7 +41,7 @@ namespace TNovUtilsST
                     IsValid = true;
                     break;
                 case StorageType.ElementId:
-                    ElementIdValue = revitParam.AsElementId().IntegerValue;
+                    ElementIdValue = RevitApiCompat.ElementIdIntValue(revitParam.AsElementId());
                     IsValid = true;
                     break;
                 default:
@@ -89,7 +89,7 @@ namespace TNovUtilsST
                     return;
 
                 case StorageType.ElementId:
-                    ElementId id = new ElementId(ElementIdValue);
+                    ElementId id = RevitApiCompat.CreateElementId(ElementIdValue);
                     revitParam.Set(id);
                     return;
 

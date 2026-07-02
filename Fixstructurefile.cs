@@ -353,7 +353,7 @@ namespace TNovUtilsST
 
             Definitions defs = tempGroup.Definitions;
             ExternalDefinitionCreationOptions defOptions =
-                  new ExternalDefinitionCreationOptions(myparam.TNovParamName, myparam.TNovParamDefinition.ParameterType);
+                  RevitApiCompat.CreateExternalDefinitionOptions(myparam.TNovParamName, myparam.TNovParamDefinition);
             defOptions.GUID = myparam.TNovParamGuid;
 
             ExternalDefinition exDef = defs.Create(defOptions) as ExternalDefinition;

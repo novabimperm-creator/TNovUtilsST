@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -22,12 +22,5 @@ using System.Runtime.InteropServices;
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
 [assembly: Guid("a538202f-9eaf-4e05-9972-ebefdc98a148")]
 
-// Сведения о версии сборки состоят из указанных ниже четырех значений:
-//
-//      Основной номер версии
-//      Дополнительный номер версии
-//      Номер сборки
-//      Редакция
-//
-[assembly: AssemblyVersion("1.5.0.0")]
-[assembly: AssemblyFileVersion("1.5.0.0")]
+// Версия сборки задаётся в Properties\VersionInfo.cs
+// (GenerateAssemblyInfo=false — поля «Версия сборки» в .csproj игнорируются)
