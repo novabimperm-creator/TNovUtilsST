@@ -1,151 +1,249 @@
 ﻿<Window x:Class="TNovUtilsST.SchemespecWPF"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TNovUtilsST"
-             mc:Ignorable="d" Height="640" Width="400"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:TNovUtilsST"
+        mc:Ignorable="d"
+        Width="720"
+        SizeToContent="Height"
         d:DataContext="{d:DesignInstance local:SchemespecViewModel}"
-            WindowStartupLocation="CenterScreen" 
-                                       AllowsTransparency="True"
-Background="Transparent" 
-            ResizeMode="NoResize" WindowStyle="None">
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStyle="None">
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/TNovCommon;component/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="/TNovCommon;component/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="30"
-              ResizeBorderThickness="5"
-              GlassFrameThickness="0"
-              CornerRadius="12"/>
+                      ResizeBorderThickness="5"
+                      GlassFrameThickness="0"
+                      CornerRadius="12"/>
     </WindowChrome.WindowChrome>
+
     <Border CornerRadius="12"
-    Background="White"
-    BorderBrush="#FF008E43"
-    BorderThickness="1">
-        <Grid>
-            <!-- Верхняя панель (кастомный заголовок) -->
-            <Border Height="30" CornerRadius="12 12 0 0"
-    Background="#FF008E43" 
-    VerticalAlignment="Top"
-    MouseDown="Border_MouseDown">
-                <StackPanel Orientation="Horizontal">
-                    <Button Style="{StaticResource RoundButtonStyle}" 
-Click="escButton_Click" Content="✕"
-HorizontalAlignment="Center" VerticalAlignment="Center"
-Width="20" Height="20" Margin="5,0"
-WindowChrome.IsHitTestVisibleInChrome="True"/>
-                    <Button Style="{StaticResource RoundButtonStyle2}" 
-Click="HelpButton_Click" Content="?"
-HorizontalAlignment="Center" VerticalAlignment="Center"
-Width="20" Height="20" Margin="0"
-WindowChrome.IsHitTestVisibleInChrome="True"/>
-                    <TextBlock Text="Группировка КЖ" 
-Foreground="White"
-VerticalAlignment="Center"
-Margin="10,0"/>
-                </StackPanel>
-
+            Background="{StaticResource BgBrush}"
+            BorderBrush="{StaticResource AccentBrush}"
+            BorderThickness="1">
+        <StackPanel Margin="18">
+            <Border MouseDown="TitleBar_MouseDown"
+                    Background="Transparent"
+                    Cursor="Arrow"
+                    Margin="0,0,0,12">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="35"/>
+                        <ColumnDefinition Width="35"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="ГРУППИРОВКА КЖ"
+                               Grid.Column="0"
+                               Foreground="{StaticResource AccentBrush}"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"/>
+                    <Button Content="i"
+                            Grid.Column="1"
+                            Style="{StaticResource CloseButtonStyleMini}"
+                            Click="HelpButton_Click"
+                            WindowChrome.IsHitTestVisibleInChrome="True"/>
+                    <Button Content="✕"
+                            Grid.Column="2"
+                            Style="{StaticResource CloseButtonStyleMini}"
+                            Click="escButton_Click"
+                            WindowChrome.IsHitTestVisibleInChrome="True"/>
+                </Grid>
             </Border>
 
-            <!-- Основное содержимое -->
-            <Border Margin="0,30,0,0">
-                <StackPanel VerticalAlignment="Center" Margin="5">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Margin="5" Text="Группирование по маркам конструкций:" />
-                    </StackPanel>
+            <TextBlock Text="Группирование по маркам конструкций"
+                       Foreground="{StaticResource MutedBrush}"
+                       FontSize="12"
+                       Margin="0,0,0,12"/>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Рм" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output1}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Рл" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output2}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Пр" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output3}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Пл" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output4}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Фп" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output5}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Пол/Пб" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output6}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Мс" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output7}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="ЛК/Лк" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output8}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Лм" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output9}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Лп" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output10}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Дж" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output11}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="К/Кл" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output12}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Пм" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output13}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Пп" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output14}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Бм" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output15}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Пт" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output16}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Дс" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output17}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Км" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output18}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Text="Вып" Width="50" Margin="5" TextAlignment="Center" TextWrapping="Wrap" />
-                        <TextBox Text="{Binding output19}" MinWidth="200" Margin="5" TextAlignment="Left" TextWrapping="Wrap" BorderBrush="#CCCCCC"/>
-                    </StackPanel>
+            <Grid Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Style="{StaticResource CustomButtonStyle}" Content="Отмена" x:Name="escButton" IsCancel="True" Click="escButton_Click" MinWidth="60" MinHeight="25" Margin="5" />
-                        <Button Style="{StaticResource CustomButtonStyle}" Content="Запуск" x:Name="acceptButton" IsDefault="True" Click="acceptButton_Click" MinWidth="120" Margin="5"/>
-                    </StackPanel>
-
+                <StackPanel Grid.Column="0">
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Рм" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output1}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Рл" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output2}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Пр" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output3}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Пл" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output4}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Фп" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output5}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Пол/Пб" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+                        <TextBox Grid.Column="1" Text="{Binding output6}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Мс" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output7}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="ЛК/Лк" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+                        <TextBox Grid.Column="1" Text="{Binding output8}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Лм" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output9}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Лп" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output10}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
                 </StackPanel>
 
+                <StackPanel Grid.Column="2">
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Дж" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output11}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="К/Кл" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap"/>
+                        <TextBox Grid.Column="1" Text="{Binding output12}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Пм" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output13}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Пп" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output14}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Бм" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output15}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Пт" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output16}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Дс" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output17}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Км" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output18}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="44"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Вып" Grid.Column="0" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center" TextAlignment="Center"/>
+                        <TextBox Grid.Column="1" Text="{Binding output19}" Height="36" Margin="8,0,0,0" Style="{StaticResource DarkTextBoxStyle}"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
 
-            </Border>
-        </Grid>
+            <Button Content="Запуск"
+                    Style="{StaticResource RunButtonStyle}"
+                    x:Name="acceptButton"
+                    IsDefault="True"
+                    Click="acceptButton_Click"/>
+            <Button Content="Отмена"
+                    Style="{StaticResource CloseButtonStyle}"
+                    x:Name="escButton"
+                    IsCancel="True"
+                    Click="escButton_Click"/>
+        </StackPanel>
     </Border>
-
 </Window>
