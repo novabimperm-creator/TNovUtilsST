@@ -122,11 +122,7 @@ namespace TNovUtilsST
             catch
             {
                 var info1 = new InfoWindow280("Не найден файл общих параметров!"); info1.ShowDialog();
-                string commandText = @"https://portal.talan.group/knowledge/proektirovanie/startraboty/";
-                var proc = new System.Diagnostics.Process();
-                proc.StartInfo.FileName = commandText;
-                proc.StartInfo.UseShellExecute = true;
-                proc.Start();
+                HelpLinks.ShowHelp("Старт работы");
                 Logger.Log("Не найден файл общих параметров. Завершение работы.",3);
                 return Result.Cancelled;
             }

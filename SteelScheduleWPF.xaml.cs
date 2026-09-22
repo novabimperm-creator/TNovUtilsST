@@ -34,11 +34,7 @@ namespace TNovUtilsST
 
         private void HelpButton_Click(object sender, RoutedEventArgs e)
         {
-            string commandText = HelpLinks.GetHelpLink("ВРС подчистить");
-            var proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = commandText;
-            proc.StartInfo.UseShellExecute = true;
-            proc.Start();
+            HelpLinks.ShowHelp("ВРС подчистить");
         }
     }
 }
